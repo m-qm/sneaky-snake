@@ -87,7 +87,7 @@ Game.js
 
  Snake.js
  
-    Player(canvas) {
+    Snake(canvas) {
       self.x
       self.y
       self.direction
@@ -97,11 +97,11 @@ Game.js
       self.ctx
     }
 
-    Player.prototype.setDirection()
-    Player.prototype.checkIfPlayerEatFood() //than it will be also for the points
-    Player.prototype.collided()
-    Player.prototype.update()
-    Player.prototype.draw()
+    Snake.prototype.setDirection()
+    Snake.prototype.checkIfSnake.EatFood() //than it will be also for the points
+    Snake.prototype.collided()
+    Snake.prototype.update()
+    Snake.prototype.draw()
     
 Food.js
 
