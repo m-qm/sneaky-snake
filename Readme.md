@@ -24,7 +24,7 @@ Mobile version
 
 Data structure
 
-    Game.js
+Game.js
 
     Game() {
         self.gameIsOver;
