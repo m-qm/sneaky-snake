@@ -10,6 +10,13 @@ MVP (DOM - CANVAS)
 
 CANVAS The MVP version will be the first level of the game:
 a snake and one piece of food. 
+- Canvas
+- Create Snake
+- Move Snake
+- Create Food
+- Food Collision
+- IsDead? (Collision with itself or walls)
+- When Snake eats food generate next piece
 
 Backlog
 
@@ -40,7 +47,8 @@ Game.js
         self.canvas;
         self.width;
         self.height;
-        webDev = new Player();
+        snake = new Snake();
+        food = new Food();
         addEventListener;
         self.startLoop();
     )
@@ -54,12 +62,12 @@ Game.js
         
 
     //update positions
-    self.player.update()
+    self.snake.update()
     self.food.update()
     
     //check if snake eat food if true remove
 
-    self.checkIfPlayerEatFood()
+    self.checkIfSnakeEatFood()
     
     //Earn points
     
@@ -71,24 +79,14 @@ Game.js
     ctx.clearRect()
     
     //draw
-    self.player.draw()
+    self.snake.draw()
     self.food.draw()
     Frame(loop)
+   ```
    
 
-    Game
-    Loop
-    Score
-    Direction
-    Canvas Grid
-    Collision
-    Draw function
-    Is over?
-
-
-
- Player.js
-            
+ Snake.js
+ 
     Player(canvas) {
       self.x
       self.y
@@ -105,14 +103,7 @@ Game.js
     Player.prototype.update()
     Player.prototype.draw()
     
-    
-    Size
-    Speed
-    Direction
-
-
-
- Food.js
+Food.js
 
     Food(canvas, x, y) {
       self.x
@@ -130,7 +121,6 @@ Game.js
 
     Math Random
     Place in canvas (x,y)
-
 
 Transitions
 
