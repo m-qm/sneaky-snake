@@ -13,14 +13,14 @@ a snake and one piece of food.
 
 Backlog
 
-Add points + score
-Increase the snake by number of pieces of food eaten
-Add pause
-History of scores by player
-Design
-Images
-Music
-Mobile version
+- Add points + score
+- Increase the snake by number of pieces of food eaten
+- Add pause
+- History of scores by player
+- Design
+- Images
+- Music
+- Mobile version
 
 Data structure
 
