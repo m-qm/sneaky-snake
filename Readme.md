@@ -21,31 +21,31 @@ Music
 Mobile version
 
 Data structure
-Game.js
+    Game.js
 
-Game() {
-    self.gameIsOver;
-    self.score;
-}
+    Game() {
+        self.gameIsOver;
+        self.score;
+    }
 
-Game.prototype.start(
-    buildDom();
-    self.score;
-    self.input;
-    self.canvas;
-    self.width;
-    self.height;
-    webDev = new Player();
-    addEventListener;
-    self.startLoop();
-)
+    Game.prototype.start(
+        buildDom();
+        self.score;
+        self.input;
+        self.canvas;
+        self.width;
+        self.height;
+        webDev = new Player();
+        addEventListener;
+        self.startLoop();
+    )
 
-Game.prototype.startLoop(
-  ctx
-  loop() {
-    //creates food
-    food = new food()
-    
+    Game.prototype.startLoop(
+      ctx
+      loop() {
+        //creates food
+        food = new food()
+
     //update positions
     self.player.update()
     self.food.update()
@@ -71,76 +71,76 @@ Game.prototype.startLoop(
    Frame(loop)
 )
 
-Game
-Loop
-Score
-Direction
-Canvas Grid
-Collision
-Draw function
-Is over?
+    Game
+    Loop
+    Score
+    Direction
+    Canvas Grid
+    Collision
+    Draw function
+    Is over?
 
 
 
-Player.js
-Size
-Speed
-Direction
+    Player.js
+    Size
+    Speed
+    Direction
 
-Player(canvas) {
-  self.x
-  self.y
-  self.direction
-  self.size
-  self.speed
-  self.canvas
-  self.ctx
-}
+    Player(canvas) {
+      self.x
+      self.y
+      self.direction
+      self.size
+      self.speed
+      self.canvas
+      self.ctx
+    }
 
-Player.prototype.setDirection()
-Player.prototype.checkIfPlayerEatFood() //than it will be also for the points
-Player.prototype.collided()
-Player.prototype.update()
-Player.prototype.draw()
-
-
-
-Food.js
-
-Food(canvas, x, y) {
-  self.x
-  self.y
-  self.direction 0
-  self.size
-  self.canvas
-  self.ctx
-}
-
-Food.prototype.update()
-Food.prototype.draw()
-Food.prototype.isInScreen()
+    Player.prototype.setDirection()
+    Player.prototype.checkIfPlayerEatFood() //than it will be also for the points
+    Player.prototype.collided()
+    Player.prototype.update()
+    Player.prototype.draw()
 
 
-Math Random
-Place in canvas (x,y)
 
-- splashScreen()
-  - destroyGameOver(if)
-  - buildSplash()
-  - addEventListener(startGame)
-  
-  
-- startGame()
-  - destroySplash()
-  - destroyGameOver()
-  - create new Game()
-  - game.start()
-  
-  
-- gameOver()
-  - destroyGame()
-  - buildGameOver()
-  - addEventListener( if splashScreen, else startGame)
+    Food.js
+
+    Food(canvas, x, y) {
+      self.x
+      self.y
+      self.direction 0
+      self.size
+      self.canvas
+      self.ctx
+    }
+
+    Food.prototype.update()
+    Food.prototype.draw()
+    Food.prototype.isInScreen()
+
+
+    Math Random
+    Place in canvas (x,y)
+
+    - splashScreen()
+      - destroyGameOver(if)
+      - buildSplash()
+      - addEventListener(startGame)
+
+
+    - startGame()
+      - destroySplash()
+      - destroyGameOver()
+      - create new Game()
+      - game.start()
+
+
+    - gameOver()
+      - destroyGame()
+      - buildGameOver()
+      - addEventListener( if splashScreen, else startGame)
 
 
 Task
