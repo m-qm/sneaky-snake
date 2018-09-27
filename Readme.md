@@ -1,7 +1,7 @@
 
 # SneakySnake Game
 
-Description
+### Description
 Snake game is a very simple game build in HTML5 and JS in which
 the player has to control a snake and eat as much food as possible.
 It is a one life game, and the losing condition is when the snake hits the walls of the game.
@@ -26,6 +26,8 @@ Data structure
 
 Game.js
 
+```
+
     Game() {
         self.gameIsOver;
         self.score;
@@ -48,6 +50,8 @@ Game.js
       loop() {
         //creates food
         food = new food()
+        
+        
 
     //update positions
     self.player.update()
