@@ -67,9 +67,7 @@ Data structure
     self.player.draw()
     self.food.draw()
     Frame(loop)
-   }
-   Frame(loop)
-)
+   
 
     Game
     Loop
@@ -82,11 +80,8 @@ Data structure
 
 
 
-    Player.js
-    Size
-    Speed
-    Direction
-
+ Player.js
+            
     Player(canvas) {
       self.x
       self.y
@@ -102,10 +97,15 @@ Data structure
     Player.prototype.collided()
     Player.prototype.update()
     Player.prototype.draw()
+    
+    
+    Size
+    Speed
+    Direction
 
 
 
-    Food.js
+ Food.js
 
     Food(canvas, x, y) {
       self.x
@@ -141,32 +141,4 @@ Data structure
       - destroyGame()
       - buildGameOver()
       - addEventListener( if splashScreen, else startGame)
-
-
-Task
-
-create files javascript
-Main - buildDom
-Main - buildSplash
-Main - addEventListener
-Main - destroySplash
-Game - buildDom
-Game - TimeOut test
-Main - GameOver
-Main - destroy Game
-Main - GameOver RESTART
-Main - removeGameOver
-Game - addEventListener
-Game - create player
-Player - create
-Player - directions
-Game - loop
-Game - player and enemies position
-Game - clear
-Game - create enemies
-Enemy - create
-Enemy - check if still in screen
-Game - collision + remove
-Game - lives
-Game - gameOver
 
