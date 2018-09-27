@@ -127,6 +127,9 @@ Game.js
     Math Random
     Place in canvas (x,y)
 
+
+Transitions
+
     - splashScreen()
       - destroyGameOver(if)
       - buildSplash()
