@@ -27,14 +27,21 @@ Game.prototype._init = function () {
           <span class="value"></span>
         </div>
       </header>
-      
-      <canvas class="canvas" width="608" height="608"></canvas>
+      <div class="game__canvas">
+        <canvas class="canvas"></canvas>
     </main>
   `)
 
   self.parentElement.appendChild(self.gameElement);
 
+  self.canvasParentElement = document.querySelector('.game__canvas');
   self.canvasElement = document.querySelector('.canvas');
+
+  self.width = self.canvasParentElement.clientWidth;
+  self.height = self.canvasParentElement.clientHeight;
+
+  self.canvasElement.setAttribute('width', self.width);
+  self.canvasElement.setAttribute('height', self.height);
 
   self.ctx = self.canvasElement.getContext('2d');
 }
@@ -45,10 +52,16 @@ Game.prototype._startLoop = function () {
 
   self.handleKeyDown = function (evt) {
     if (evt.key === "ArrowDown") {
-      self.player.setDirection(1)
+      self.player.setDirection(0, 1)
     }
     if (evt.key === "ArrowUp") {
-      self.player.setDirection(-1)
+      self.player.setDirection(0, -1)
+    }
+    if (evt.key === "ArrowLeft") {
+      self.player.setDirection(-1, 0)
+    }
+    if (evt.key === "ArrowRight") {
+      self.player.setDirection(1, 0)
     }
   }
 

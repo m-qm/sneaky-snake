@@ -4,9 +4,10 @@ function Player(canvas) {
   
     self.x = 0;
     self.y = 0;
-    self.vel = 10;
+    self.vel = 5;
     self.size = 60;
-    self.direction = 0;
+    self.dx = 0;
+    self.dy = 0;
     self.lives = 1;
     self.ctx = canvas.getContext('2d');
   }
@@ -14,8 +15,9 @@ function Player(canvas) {
   Player.prototype.update = function () {
     var self = this;
   
-    self.y += (self.vel * self.direction);
-    //self._checkLimits();
+    self.y += (self.vel * self.dy);
+    self.x += (self.vel * self.dx);
+    self._checkLimits();
   }
   
   Player.prototype.render = function () {
@@ -25,10 +27,11 @@ function Player(canvas) {
     self.ctx.fillRect(self.x, self.y, self.size, self.size);
   }
   
-  Player.prototype.setDirection = function (newDirection) {
+  Player.prototype.setDirection = function (dx, dy) {
     var self = this;
 
-    self.direction = newDirection;
+    self.dx = dx;
+    self.dy = dy;
   }
 
   Player.prototype._checkLimits = function () {
@@ -37,6 +40,12 @@ function Player(canvas) {
       self.setDirection(1);
     }
     else if (self.y > self.ctx.canvas.height - self.size) {
+      self.setDirection(-1);
+    }
+    if (self.x < 0) {
+      self.setDirection(1);
+    }
+    else if (self.x > self.ctx.canvas.width - self.size) {
       self.setDirection(-1);
     }
   }
