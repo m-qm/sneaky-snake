@@ -1,4 +1,3 @@
-
 function Player(canvas) {
   var self = this;
 
@@ -60,6 +59,7 @@ Player.prototype.checkCollision = function (object) {
 
   if (crashLeft && crashRight && crashTop && crashBottom) {
     return true;
+  
   }
 
   return false;
@@ -67,6 +67,6 @@ Player.prototype.checkCollision = function (object) {
 
 Player.prototype.collided = function () {
   var self = this;
-
   self.lives -= 1;
+
 }

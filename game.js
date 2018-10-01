@@ -29,6 +29,7 @@ Game.prototype._init = function () {
       </header>
       <div class="game__canvas">
         <canvas class="canvas"></canvas>
+      </div>
     </main>
   `)
 
@@ -48,6 +49,8 @@ Game.prototype._init = function () {
 
 Game.prototype._startLoop = function () {
   var self = this;
+
+  self.beer = new Beer(self.canvasElement);
   self.player = new Player(self.canvasElement);
 
   self.handleKeyDown = function (evt) {
@@ -68,40 +71,63 @@ Game.prototype._startLoop = function () {
   document.addEventListener('keydown', self.handleKeyDown);
   //ToDelete
   var isPlayerAlive = true;
+
   function loop() {
     self._clearAll();
     self._updateAll();
     self._renderAll();
-
-    if (isPlayerAlive){
+  
+    if (isPlayerAlive) {
       requestAnimationFrame(loop);
     } else {
       self.onGameOverCallback();
     }
-
   }
 
   requestAnimationFrame(loop);
-} 
-
-Game.prototype._updateAll = function () {
-  var self = this;
-  self.player.update();
 }
 
-Game.prototype._renderAll = function ()  {
+Game.prototype._updateAll = function () {
+
   var self = this;
 
+  // self.beer(function(item) {
+  //   item.update();
+  // })
+  
+  // self.beer = self.beer.filter(function(item) {
+  //   if (item.isDeath()) {
+  //     self.score += 1;
+  //     return false;
+  //   }
+  //   return true;
+  // })
+ 
+  self.player.update();
+  self._checkAllCollision();
+}
+
+Game.prototype._renderAll = function () {
+  var self = this;
+
+  self.beer.render();
   self.player.render();
 
 }
 
-Game.prototype._clearAll = function ()  {
+Game.prototype._clearAll = function () {
   var self = this;
 
   self.ctx.clearRect(0, 0, self.width, self.height);
 }
 
+Game.prototype._checkAllCollision = function() {
+  var self = this;
+  if(self.player.checkCollision(self.beer)) {
+       self.beer = new Beer(self.canvasElement);
+       self.player.collided();
+    }
+}
 
 Game.prototype.onOver = function (callback) {
   var self = this;
@@ -109,10 +135,12 @@ Game.prototype.onOver = function (callback) {
   self.onGameOverCallback = callback;
 }
 
-Game.prototype.destroy = function() {
+Game.prototype.destroy = function () {
   var self = this;
 
   self.gameElement.remove();
   self.onGameOverCallback = null;
+
+
 
 }
