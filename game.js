@@ -27,8 +27,8 @@ Game.prototype._init = function () {
           <span class="value"></span>
         </div>
       </header>
-      <div class="game__canvas">
-        <canvas class="canvas"></canvas>
+      <div id="game_c" class="game__canvas">
+        <canvas></canvas>
       </div>
     </main>
   `)
@@ -36,7 +36,9 @@ Game.prototype._init = function () {
   self.parentElement.appendChild(self.gameElement);
 
   self.canvasParentElement = document.querySelector('.game__canvas');
-  self.canvasElement = document.querySelector('.canvas');
+  self.canvasElement = document.querySelector('canvas');
+
+  self.scoreElement = document.querySelector(".score .value");
 
   self.width = self.canvasParentElement.clientWidth;
   self.height = self.canvasParentElement.clientHeight;
@@ -52,6 +54,7 @@ Game.prototype._startLoop = function () {
 
   self.beer = new Beer(self.canvasElement);
   self.player = new Player(self.canvasElement);
+  self.score = 0;
 
   self.handleKeyDown = function (evt) {
     if (evt.key === "ArrowDown") {
@@ -90,21 +93,11 @@ Game.prototype._startLoop = function () {
 Game.prototype._updateAll = function () {
 
   var self = this;
-
-  // self.beer(function(item) {
-  //   item.update();
-  // })
-  
-  // self.beer = self.beer.filter(function(item) {
-  //   if (item.isDeath()) {
-  //     self.score += 1;
-  //     return false;
-  //   }
-  //   return true;
-  // })
  
   self.player.update();
   self._checkAllCollision();
+
+  self._updateUI();
 }
 
 Game.prototype._renderAll = function () {
@@ -125,6 +118,7 @@ Game.prototype._checkAllCollision = function() {
   var self = this;
   if(self.player.checkCollision(self.beer)) {
        self.beer = new Beer(self.canvasElement);
+       self.score += 1;
        self.player.collided();
     }
 }
@@ -140,7 +134,10 @@ Game.prototype.destroy = function () {
 
   self.gameElement.remove();
   self.onGameOverCallback = null;
+}
 
+Game.prototype._updateUI = function () {
+  var self = this;
 
-
+  self.scoreElement.innerText = self.score;
 }
