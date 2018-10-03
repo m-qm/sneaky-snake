@@ -3,41 +3,28 @@ function Player(canvas) {
 
   self.x = 0;
   self.y = 0;
-  self.vel = 5;
+  self.vel = 10;
   self.size = 20;
   self.dx = 0;
   self.dy = 0;
   self.score = 0;
-  self.body = [{x: 0, y: 0}];
   self.ctx = canvas.getContext('2d');
 }
 
 Player.prototype.update = function () {
   var self = this;
 
-  if (self.dx === 1 && self.dy === 0) { 
-    body[0, 1]; 
-  } else if (self.dx === -1 && self.dy === 0) { 
-    body[0, -1]; 
-  } else if (self.dx === 0 && self.dy === -1) { 
-    body[0, -1]; 
-  } else if(self.dx === 0 && self.dy === 1) { 
-    body[0, 1]; 
-  }
-
   self.y += (self.vel * self.dy);
   self.x += (self.vel * self.dx);
+
   self._checkLimits();
 }
 
 Player.prototype.render = function () {
   var self = this;
 
-  self.ctx.fillStyle = 'black';
-
-  self.body.forEach(function (item) {
-    self.ctx.fillRect(item.x, item.y, self.size, self.size);
-  });
+  self.ctx.fillStyle = 'greenyellow';
+  self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }
 
 Player.prototype.setDirection = function (dx, dy) {
@@ -46,6 +33,13 @@ Player.prototype.setDirection = function (dx, dy) {
   self.dx = dx;
   self.dy = dy;
   
+}
+
+Player.prototype.invertDirection = function() {
+  var self = this;
+
+  self.dx = -self.dx;
+  self.dy = -self.dy;
 }
 
 Player.prototype._checkLimits = function () {
@@ -84,5 +78,20 @@ Player.prototype.collided = function () {
   var self = this;
 
 
-}
+  // if(self.score=+1) {
+  // }
+  // else {
+  //   self.head = body.pop();
+  //   self.head.x = self.body.x;
+  //   self.head.y = self.body.y;
+  // }
+
+
+  // for(var i = 0; i < self.body.length; i++) {
+  //      self.body(head[i].x, head[i].y);
+    // Beer(body.x, body.y);
+  }
+
+
+
 

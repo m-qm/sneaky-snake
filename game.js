@@ -7,6 +7,8 @@ function Game(parent) {
   self.parentElement = parent;
   self.gameElement = null
   self.onGameOverCallback = null;
+  self.isGameOver = false;
+  self.beers = [];
 
   self._init();
   self._startLoop();
@@ -17,11 +19,8 @@ Game.prototype._init = function () {
 
   self.gameElement = buildDom(`
     <main class="game container">
+    <audio src="musicon.mp3" loop = "true" autoplay = "true"></audio>
       <header class="game__header">
-        <div class="lives">
-          <span class="label">Lives:</span>
-          <span class="value"></span>
-        </div>
         <div class="score">
           <span class="label">Score:</span>
           <span class="value"></span>
@@ -51,8 +50,8 @@ Game.prototype._init = function () {
 
 Game.prototype._startLoop = function () {
   var self = this;
-
-  self.beer = new Beer(self.canvasElement);
+  var randomPosition = self._getRandomPositions();
+  self.beers = [new Beer(self.canvasElement, randomPosition.x, randomPosition.y)]
   self.player = new Player(self.canvasElement);
   self.score = 0;
 
@@ -72,15 +71,14 @@ Game.prototype._startLoop = function () {
   }
 
   document.addEventListener('keydown', self.handleKeyDown);
-  //ToDelete
-  var isPlayerAlive = true;
+
 
   function loop() {
     self._clearAll();
     self._updateAll();
     self._renderAll();
   
-    if (isPlayerAlive) {
+    if (!self.isGameOver) {
       requestAnimationFrame(loop);
     } else {
       self.onGameOverCallback();
@@ -103,7 +101,12 @@ Game.prototype._updateAll = function () {
 Game.prototype._renderAll = function () {
   var self = this;
 
-  self.beer.render();
+  self.beers.forEach(function(item){
+
+    item.render();
+  })
+
+
   self.player.render();
 
 }
@@ -116,11 +119,56 @@ Game.prototype._clearAll = function () {
 
 Game.prototype._checkAllCollision = function() {
   var self = this;
-  if(self.player.checkCollision(self.beer)) {
-       self.beer = new Beer(self.canvasElement);
-       self.score += 1;
-       self.player.collided();
+
+  self.beers.forEach(function(item){
+      if(self.player.checkCollision(item)) {
+
+        if(item.state === 'beer'){
+          self.player.invertDirection();
+          var newPosition = self._getRandomPositions();
+          self.beers.push(new Beer(self.canvasElement, newPosition.x, newPosition.y));
+          self.score++;
+          item.state = 'wall';
+        }else if(item.state === 'wall'){
+          self.gameOver();
+        }
+      }
+  })
+}
+
+Game.prototype._getRandomPositions = function ()  {
+  var self = this;
+  
+  var newPosition = self._getNewPositions();
+  for (var i = 0; i < self.beers.length; i++) {
+    var currentBeer = self.beers[i];
+    if (currentBeer.x === newPosition.x && currentBeer.y === newPosition.y) {
+      newPosition = self._getNewPositions();
+      i = 0;
     }
+  }
+
+  return newPosition;
+
+}
+
+Game.prototype._getNewPositions = function () {
+  var self = this;
+
+  var wallSize = 20;
+  var numberHeightAvailable = self.height / wallSize;
+  var numberWidthAvailable = self.width / wallSize;
+
+  var randomX = Math.floor(Math.random() * numberWidthAvailable) * wallSize;
+  var randomY = Math.floor(Math.random() * numberHeightAvailable) * wallSize;
+
+  return {x: randomX, y: randomY}
+
+}
+
+Game.prototype.gameOver = function () {
+  var self = this;
+  self.isGameOver = true;
 }
 
 Game.prototype.onOver = function (callback) {

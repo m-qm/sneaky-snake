@@ -1,11 +1,12 @@
 
-function Beer(canvas) {
+function Beer(canvas, x, y) {
   var self = this;
   self.size = 20;
   self.canvasElement = canvas;
-  self.x = Math.floor(Math.random() * (self.canvasElement.width - self.size));
-  self.y = Math.floor(Math.random() * (self.canvasElement.height - self.size));
+  self.x = x;
+  self.y = y;
   self.ctx = canvas.getContext('2d');
+  self.state = 'beer';
 }
 
 Beer.prototype.update = function () {
@@ -16,13 +17,16 @@ Beer.prototype.update = function () {
 Beer.prototype.render = function () {
   var self = this;
   self.ctx.fillStyle = 'red';
+  if (self.state === 'wall') {
+    self.ctx.fillStyle = 'blue';
+  }
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
-
 }
 
-Beer.prototype.isDeath = function () {
+Beer.prototype.collided = function () {
   var self = this;
 
-  return (self.x + self.size) < 0;
+  self.state = 'wall';
+
 }
 
