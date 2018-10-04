@@ -23,7 +23,7 @@ Player.prototype.update = function () {
 Player.prototype.render = function () {
   var self = this;
 
-  self.ctx.fillStyle = 'greenyellow';
+  self.ctx.fillStyle = '#15D600';
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }
 

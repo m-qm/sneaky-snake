@@ -16,9 +16,9 @@ Beer.prototype.update = function () {
 
 Beer.prototype.render = function () {
   var self = this;
-  self.ctx.fillStyle = 'red';
+  self.ctx.fillStyle = '#f33323';
   if (self.state === 'wall') {
-    self.ctx.fillStyle = 'blue';
+    self.ctx.fillStyle = '#001af5';
   }
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }

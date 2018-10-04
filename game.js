@@ -19,7 +19,7 @@ Game.prototype._init = function () {
 
   self.gameElement = buildDom(`
     <main class="game container">
-    <audio src="musicon.mp3" loop = "true" autoplay = "true"></audio>
+    <audio src="musicon.mp3" loop="true" autoplay = "true"></audio>
       <header class="game__header">
         <div class="score">
           <span class="label">Score:</span>
