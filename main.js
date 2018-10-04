@@ -36,7 +36,7 @@ function main() {
       <img class="logo" src="img/title.png" alt="logo">
       <h4>Press Start or Space:</h4>
       <a class ="start-btn btn">Start Game</a>
-      <p class = "instructions-text"> </p>
+      <p class = "instructions-text">Move Sneaky Snake with Arrows, avoid blue squares and hit the red ones!</p>
     </main>
     `)
 
@@ -92,28 +92,30 @@ function main() {
         <p>Your score: <span class="score"></span></p>
         <ul class="ranking">
 
-        <a class="restart-btn btn">Play Again</a>
         </ul>
+        <a class="restart-btn btn">Play Again</a>
       </main>
     `);
     // ^ add the scores
     mainContainerElement.appendChild(gameoverElement);
 
     gameoverButton = document.querySelector('a.restart-btn');
-    document.body.addEventListener('keyup',handleSplashSpace)
-
+    
     scoreElement = document.querySelector('.score');
     rankingElement = document.querySelector('.ranking');
     buildRanking(data);
-
+    
     scoreElement.innerText = score;
+    document.body.addEventListener('keyup',handleGameoverClick)
     gameoverButton.addEventListener('click', handleGameoverClick);
   }
 
   function destroyGameover() {
     gameoverButton.removeEventListener('click', handleGameoverClick);
-    document.body.removeEventListener('keyup', handleSplashSpace);
-    scoreElement.remove();
+    document.body.removeEventListener('keyup', handleGameoverClick);
+    
+    
+    gameoverElement.remove();
   }
 
 
@@ -123,7 +125,7 @@ function main() {
     // get name with a prompt and save it in a object with the score
     var newName = prompt('Write your name here: ');
 
-    if (newName.length === 0) {
+    if (!newName) {
       newName = "Player";
     }
     var userRanking = {name: newName, score: score};
@@ -159,10 +161,10 @@ function main() {
         var name = item.name;
         var score = item.score;
         
-        var div = document.createElement('div');
-        div.innerText = name + ' ' + score;
+        var li = document.createElement('li');
+        li.innerText = name + ' ' + score;
         
-        rankingElement.appendChild(div);
+        rankingElement.appendChild(li);
         
         })
   

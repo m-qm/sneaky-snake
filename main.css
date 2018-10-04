@@ -2,6 +2,7 @@
 
 html {
   box-sizing: border-box;
+
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -10,12 +11,16 @@ html {
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Press Start 2P', cursive;
+  background-color: rgb(172, 41, 41);
+
   
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin: 20px;
   padding: 0;
+  padding-top: 20px;
 }
 
 
@@ -37,6 +42,10 @@ img{
   padding: 10px 13px;
 }
 
+score {
+  font-family: 'Press Start 2P', cursive;
+
+}
 canvas{
   border: 1px solid grey;
   background:#000;
@@ -73,6 +82,7 @@ canvas{
   display: flex;
   padding-bottom: 20px;
   background-color: grey;
+  font-family: 'Press Start 2P', cursive;
   justify-content: space-between;
   padding-top: 10px;
 
@@ -87,7 +97,6 @@ canvas{
 .label {
   margin-left: 10px;
   color: white;
-  font-family: 'Verdana';
 }
 
 #img-logo {
@@ -95,18 +104,14 @@ canvas{
  height: auto;
 }
 
-@font-face {
-  font-family: 'Press Start 2p';
-
-a {
+a{
   text-align: center;
   display: inline-block;
-  margin:5px;
+  font-family: 'Press Start 2P', cursive;  margin:5px;
   font-weight: bold;
-  padding: 20px 0 20px 20px ;
-  background-color: li ghtgray;
-  text-shadow: -1px -1px black, 1px 1px white;
-  color: black;
+  padding: 20px 20px 20px 20px ;
+  background-color: lightgray;
+    color: black;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   -o-border-radius: 7px;
@@ -114,4 +119,12 @@ a {
   box-shadow: 0 .2em gray; 
   cursor: pointer;
 
+}
+
+#label {
+  font-family: 'Press Start 2P', cursive;
+}
+
+ul.ranking {
+  list-style: none  ;
 }
