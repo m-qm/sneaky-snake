@@ -6,7 +6,7 @@ Snake game is a very simple game build in HTML5 and JS in which
 the player has to control a snake and eat as much food as possible.
 It is a one life game, and the losing condition is when the snake hits the walls of the game.
 
-MVP (DOM - CANVAS)
+MVP (CANVAS)
 
 CANVAS The MVP version will be the first level of the game:
 a snake and one piece of food. 
