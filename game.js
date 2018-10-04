@@ -1,5 +1,11 @@
 'use scrict'
 
+//Dont do global variables
+var bgColors = [
+  '#F19C38',
+  '#8AD8EA'
+]
+
 //Game has a player
 function Game(parent) {
   var self = this;
@@ -9,6 +15,10 @@ function Game(parent) {
   self.onGameOverCallback = null;
   self.isGameOver = false;
   self.beers = [];
+
+  self.currentIdx = 0;
+  self.offsetIdx = 1;
+  self.bgColor = "#000000";
 
   self._init();
   self._startLoop();
@@ -20,12 +30,14 @@ Game.prototype._init = function () {
   self.gameElement = buildDom(`
     <main class="game container">
     <audio src="musicon.mp3" loop="true" autoplay = "true"></audio>
-      <header class="game__header">
-        <div class="score">
-          <span class="label">Score:</span>
-          <span class="value"></span>
-        </div>
+    <div class="border-container">
+      <header class="game__header text-style">
+      <div class="score text-style">
+        <span class="label">Score:</span>
+        <span class="value"></span>
+      </div>
       </header>
+    </div>
       <div id="game_c" class="game__canvas">
         <canvas></canvas>
       </div>
@@ -101,6 +113,8 @@ Game.prototype._updateAll = function () {
 Game.prototype._renderAll = function () {
   var self = this;
 
+  self._renderBackground();
+
   self.beers.forEach(function(item){
 
     item.render();
@@ -117,11 +131,36 @@ Game.prototype._clearAll = function () {
   self.ctx.clearRect(0, 0, self.width, self.height);
 }
 
+// TODO:- remove this hack
+var centilla = 0;
+
+Game.prototype._renderBackground = function () {
+  var self = this;
+
+  self.ctx.fillStyle = self.bgColor;
+
+  self.ctx.fillRect(0,0, self.width, self.height);
+  
+  if (centilla > 3) {
+    self.bgColor = '#000000';
+    centilla = 0;
+  }
+  centilla++;
+}
+
 Game.prototype._checkAllCollision = function() {
   var self = this;
 
   self.beers.forEach(function(item){
       if(self.player.checkCollision(item)) {
+        console.log(self.bgColor);
+        self.currentIdx += self.offsetIdx;
+        if (self.currentIdx === bgColors.length - 1 || self.currentIdx === 0) {
+          self.offsetIdx *= -1;
+        }
+        
+        self.bgColor = bgColors[self.currentIdx];
+        console.log(self.bgColor);
 
         if(item.state === 'beer'){
           self.player.invertDirection();
@@ -132,7 +171,7 @@ Game.prototype._checkAllCollision = function() {
         }else if(item.state === 'wall'){
           self.gameOver();
         }
-      }
+      } 
   })
 }
 

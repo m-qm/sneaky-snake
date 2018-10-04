@@ -1,5 +1,14 @@
 'use strict';
 
+//Dont do global variables
+var globalColors = [
+  '#230704',
+  '#771910',
+  '#F33323',
+  '#FF857A',
+  '#FFECEA'
+]
+
 function buildDom(html) {
   var div = document.createElement('div');
   div.innerHTML = html;
@@ -34,9 +43,9 @@ function main() {
     <main class="splash container">
 
       <img class="logo" src="img/title.png" alt="logo">
-      <h4>Press Start or Space:</h4>
+      <h4 class="text-style">Press Start or Space:</h4>
       <a class ="start-btn btn">Start Game</a>
-      <p class = "instructions-text">Move Sneaky Snake with Arrows, avoid blue squares and hit the red ones!</p>
+      <p class = "instructions-text text-style">Move Sneaky Snake with Arrows, avoid blue squares and hit the red ones!</p>
     </main>
     `)
 
@@ -88,10 +97,9 @@ function main() {
 
     gameoverElement = buildDom(`
       <main class="gameover container">
-        <h1>Game over</h1>
-        <p>Your score: <span class="score"></span></p>
-        <ul class="ranking">
-
+        <h1 class="text-style">Game over</h1>
+        <p class="text-style">Your score: <span class="score"></span></p>
+        <ul class="ranking text-style">
         </ul>
         <a class="restart-btn btn">Play Again</a>
       </main>

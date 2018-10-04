@@ -12,9 +12,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Press Start 2P', cursive;
-  background-color: rgb(172, 41, 41);
+  background: url(http://weirdcore.tv/wp-content/themes/lgk/images/textures/bakkk4bw.gif);
 
-  
+  color: #00000A;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,8 +25,11 @@ h1, h2, h3, h4, h5, h6 {
 
 
 img{
-  border: 25px solid black;
+  border: 25px solid #00000A;
+  background: url(http://weirdcore.tv/wp-content/themes/lgk/images/textures/txtwhite-alpha-3b.gif);
+  padding: 50px;
 }
+
 
 /* --- layout --- */
 
@@ -35,19 +38,18 @@ img{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(172, 41, 41);
 }
 
 .container {
   padding: 10px 13px;
 }
 
-score {
+.score {
   font-family: 'Press Start 2P', cursive;
-
+  background: url('./bg-invert.gif')!important;
 }
 canvas{
-  border: 1px solid grey;
+  border: 1px solid #00042D;
   background:#000;
 }
 
@@ -66,6 +68,10 @@ canvas{
   align-items: center;
 }
 
+.splash.container {
+  padding-top: 100px;
+}
+
 .splash__title {
   margin-bottom: 10px;
 }
@@ -81,11 +87,15 @@ canvas{
 .game__header {
   display: flex;
   padding-bottom: 20px;
-  background-color: grey;
+  background-color: #F19C38;
   font-family: 'Press Start 2P', cursive;
-  justify-content: space-between;
+  justify-content: center;
   padding-top: 10px;
 
+}
+
+span.value {
+  color: #F4F5FF;
 }
 
 .game__canvas {
@@ -104,21 +114,30 @@ canvas{
  height: auto;
 }
 
+.text-style {
+  padding: 10px;
+  color: white;
+  background: url(http://weirdcore.tv/wp-content/themes/lgk/images/textures/txtblack-03.gif);
+  text-align: center;
+}
+
 a{
   text-align: center;
   display: inline-block;
   font-family: 'Press Start 2P', cursive;  margin:5px;
   font-weight: bold;
   padding: 20px 20px 20px 20px ;
-  background-color: lightgray;
-    color: black;
+  background-color: #771910;
+    color: #F4F5FF;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   -o-border-radius: 7px;
   border-radius: 7px;
-  box-shadow: 0 .2em gray; 
+  box-shadow: 0 .2em #00042D; 
   cursor: pointer;
-
+  animation-name: background-color;
+  animation-duration: 0.05s;
+  animation-iteration-count: infinite;
 }
 
 #label {
@@ -128,3 +147,23 @@ a{
 ul.ranking {
   list-style: none  ;
 }
+
+@keyframes background-color {
+  0% {
+    background-color: #ffffff;
+    color: #333333;
+  }
+  50% {
+    background-color: #333333;
+    color: white;
+  }
+  100% {
+    background-color: #ffffff;
+    color: #333333;
+  }
+}
+
+.border-container{
+  background: url(http://weirdcore.tv/wp-content/themes/lgk/images/textures/txtwhite-alpha-3b.gif);
+  padding: 3px;
+} 
