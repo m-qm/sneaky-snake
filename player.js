@@ -74,24 +74,6 @@ Player.prototype.checkCollision = function (object) {
   return false;
 }
 
-Player.prototype.collided = function () {
-  var self = this;
-
-
-  // if(self.score=+1) {
-  // }
-  // else {
-  //   self.head = body.pop();
-  //   self.head.x = self.body.x;
-  //   self.head.y = self.body.y;
-  // }
-
-
-  // for(var i = 0; i < self.body.length; i++) {
-  //      self.body(head[i].x, head[i].y);
-    // Beer(body.x, body.y);
-  }
-
 
 
 
