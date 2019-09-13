@@ -65,9 +65,9 @@ function main() {
 
   // -- Game
   var game = null;
-  var handleGameOver = function () {
+  var handleGameOver = function (gameData) {
     destroyGame();
-    buildGameover(game.score);
+    buildGameover(gameData);
   };
 
   function buildGame() {
@@ -84,21 +84,23 @@ function main() {
   var gameoverButton = null;
   var scoreElement = null;
   var rankingElement = null;
+  var winnerElement = null;
   
   var handleGameoverClick = function () {
     destroyGameover();
     buildSplash();
   }
 
-  function buildGameover(score) {
+  function buildGameover(gameData) {
 
     // call saveScore(score) and save the result 
     
-    var data = saveScore(score);
+    var data = saveScore(gameData.playerScore);
 
     gameoverElement = buildDom(`
       <main class="gameover container">
         <h1 class="text-style">Game over</h1>
+        <h2 class="winner text-style"></h2>
         <p class="text-style">Your score: <span class="score"></span></p>
         <ul class="ranking text-style">
         </ul>
@@ -111,10 +113,12 @@ function main() {
     gameoverButton = document.querySelector('a.restart-btn');
     
     scoreElement = document.querySelector('.score');
+    winnerElement = document.querySelector('.winner');
     rankingElement = document.querySelector('.ranking');
     buildRanking(data);
     
-    scoreElement.innerText = score;
+    scoreElement.innerText = gameData.playerScore;
+    winnerElement.innerText = `${gameData.playerWinner} wins!`;
     document.body.addEventListener('keyup',handleGameoverClick)
     gameoverButton.addEventListener('click', handleGameoverClick);
   }

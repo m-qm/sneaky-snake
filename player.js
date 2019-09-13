@@ -1,13 +1,15 @@
-function Player(canvas) {
+function Player(canvas, options) {
   var self = this;
 
-  self.x = 0;
-  self.y = 0;
+  self.x = options.initX || 0;
+  self.y = options.initY || 0;
   self.vel = 10;
   self.size = 20;
   self.dx = 0;
   self.dy = 0;
   self.score = 0;
+  self.isAlive = true;
+  self.color = options.color || '#15D600'
   self.ctx = canvas.getContext('2d');
 }
 
@@ -20,10 +22,34 @@ Player.prototype.update = function () {
   self._checkLimits();
 }
 
+Player.prototype.getScore = function () {
+  var self = this;
+
+  return self.score;
+}
+
+Player.prototype.die = function () {
+  var self = this;
+
+  self.isAlive = false;
+}
+
+Player.prototype.isDead = function () {
+  var self = this;
+
+  return !self.isAlive;
+}
+
+Player.prototype.incrementScore = function (increment = 1) {
+  var self = this;
+
+  self.score += increment
+}
+
 Player.prototype.render = function () {
   var self = this;
 
-  self.ctx.fillStyle = '#15D600';
+  self.ctx.fillStyle = self.color;
   self.ctx.fillRect(self.x, self.y, self.size, self.size);
 }
 

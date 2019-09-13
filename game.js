@@ -33,7 +33,11 @@ Game.prototype._init = function () {
     <div class="border-container">
       <header class="game__header text-style">
       <div class="score text-style">
-        <span class="label">Score:</span>
+        <span class="label">Score 1:</span>
+        <span class="value"></span>
+      </div>
+      <div class="score text-style">
+        <span class="label">Score 2:</span>
         <span class="value"></span>
       </div>
       </header>
@@ -49,7 +53,7 @@ Game.prototype._init = function () {
   self.canvasParentElement = document.querySelector('.game__canvas');
   self.canvasElement = document.querySelector('canvas');
 
-  self.scoreElement = document.querySelector(".score .value");
+  self.scoreElement = document.querySelectorAll(".score .value");
 
   self.width = self.canvasParentElement.clientWidth;
   self.height = self.canvasParentElement.clientHeight;
@@ -64,7 +68,9 @@ Game.prototype._startLoop = function () {
   var self = this;
   var randomPosition = self._getRandomPositions();
   self.beers = [new Beer(self.canvasElement, randomPosition.x, randomPosition.y)]
-  self.player = new Player(self.canvasElement);
+  self.player = new Player(self.canvasElement, {});
+  self.player2 = new Player(self.canvasElement, { color: '#f54e42', initX: 100, initY: 100 });
+
   self.score = 0;
 
   self.handleKeyDown = function (evt) {
@@ -80,6 +86,19 @@ Game.prototype._startLoop = function () {
     if (evt.key === "ArrowRight") {
       self.player.setDirection(1, 0)
     }
+
+    if (evt.key === "s") {
+      self.player2.setDirection(0, 1)
+    }
+    if (evt.key === "w") {
+      self.player2.setDirection(0, -1)
+    }
+    if (evt.key === "a") {
+      self.player2.setDirection(-1, 0)
+    }
+    if (evt.key === "d") {
+      self.player2.setDirection(1, 0)
+    }
   }
 
   document.addEventListener('keydown', self.handleKeyDown);
@@ -93,11 +112,29 @@ Game.prototype._startLoop = function () {
     if (!self.isGameOver) {
       requestAnimationFrame(loop);
     } else {
-      self.onGameOverCallback();
+      self.onGameOverCallback(self._getGameOverData());
     }
   }
 
   requestAnimationFrame(loop);
+}
+
+// quien ha ganao
+// score
+Game.prototype._getGameOverData = function () {
+  var self = this;
+
+  const data = {
+    playerWinner: 'Player 1',
+    playerScore: self.player.getScore()
+  };
+
+  if (self.player.isDead()) {
+    data.playerWinner = 'Player 2'
+    data.playerScore = self.player2.getScore()
+  }
+
+  return data;
 }
 
 Game.prototype._updateAll = function () {
@@ -105,6 +142,8 @@ Game.prototype._updateAll = function () {
   var self = this;
  
   self.player.update();
+  self.player2.update();
+
   self._checkAllCollision();
 
   self._updateUI();
@@ -122,6 +161,7 @@ Game.prototype._renderAll = function () {
 
 
   self.player.render();
+  self.player2.render();
 
 }
 
@@ -148,30 +188,57 @@ Game.prototype._renderBackground = function () {
   centilla++;
 }
 
+
 Game.prototype._checkAllCollision = function() {
   var self = this;
 
   self.beers.forEach(function(item){
       if(self.player.checkCollision(item)) {
-        self.currentIdx += self.offsetIdx;
-        if (self.currentIdx === bgColors.length - 1 || self.currentIdx === 0) {
-          self.offsetIdx *= -1;
-        }
-        
-        self.bgColor = bgColors[self.currentIdx];
+        self._changeBackground();        
 
-        
         if(item.state === 'beer'){
           self.player.invertDirection();
           var newPosition = self._getRandomPositions();
           self.beers.push(new Beer(self.canvasElement, newPosition.x, newPosition.y));
-          self.score++;
+          self.player.incrementScore();
           item.state = 'wall';
         }else if(item.state === 'wall'){
+          self.player.die();
+          self.gameOver();
+        }
+      } 
+
+      if(self.player2.checkCollision(item)) {
+        self._changeBackground();
+
+        if(item.state === 'beer'){
+          self.player2.invertDirection();
+          var newPosition = self._getRandomPositions();
+          self.beers.push(new Beer(self.canvasElement, newPosition.x, newPosition.y));
+          self.player2.incrementScore();
+          item.state = 'wall';
+        }else if(item.state === 'wall'){
+          self.player2.die();
           self.gameOver();
         }
       } 
   })
+
+  if (self.player.checkCollision(self.player2)) {
+    self._changeBackground();
+    self.player2.invertDirection();
+    self.player.invertDirection();
+  } 
+}
+
+Game.prototype._changeBackground = function () {
+  var self = this;
+
+  self.currentIdx += self.offsetIdx;
+  if (self.currentIdx === bgColors.length - 1 || self.currentIdx === 0) {
+    self.offsetIdx *= -1;
+  }
+  self.bgColor = bgColors[self.currentIdx];
 }
 
 Game.prototype._getRandomPositions = function ()  {
@@ -225,5 +292,6 @@ Game.prototype.destroy = function () {
 Game.prototype._updateUI = function () {
   var self = this;
 
-  self.scoreElement.innerText = self.score;
+  self.scoreElement[0].innerText = self.player.getScore();
+  self.scoreElement[1].innerText = self.player2.getScore();
 }
